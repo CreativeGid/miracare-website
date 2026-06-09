@@ -330,9 +330,7 @@ const Navbar: React.FC<{ cartCount?: number }> = ({ cartCount = 0 }) => {
       className="luminae-nav"
       style={{ borderBottomColor: scrolled ? "rgba(139,111,71,0.2)" : "rgba(139,111,71,0.12)" }}
     >
-      <a href="#" className="luminae-nav-logo">
-        MiraCare
-      </a>
+      <a href="#" className="luminae-nav-logo">MiraCare</a>
       <ul className="luminae-nav-links">
         {["Shop", "Collections", "About", "Contact"].map((item) => (
           <li key={item}>
@@ -837,17 +835,82 @@ const GLOBAL_CSS = `
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --lum-cream: #F9F5EE;
+
+  --lum-cream: #F9F5EE; 
   --lum-warm:  #EFE6D5;
   --lum-sand:  #D9C9AD;
   --lum-bark:  #8B6F47;
-  --lum-earth: #4A3728;
+  --lum-earth: #004625;
   --lum-deep:  #1C1209;
   --lum-gold:  #C4A265;
   --lum-sage:  #7A8C6A;
   --lum-text:  #2A1F14;
   --lum-muted: #7A6A5A;
   --lum-white: #FFFEF9;
+  
+  /* Brand colors */
+  --color-brand-white: #eefdf7;
+  --color-brand-50: #e6ede9;
+  --color-brand-100: #b0c6bb;
+  --color-brand-200: #8aaa9b;
+  --color-brand-300: #54836d;
+  --color-brand-400: #336b51;
+  --color-brand-500: #004625;
+  --color-brand-600: #004022;
+  --color-brand-700: #00321a;
+  --color-brand-800: #002714;
+  --color-brand-900: #001d10;
+
+   /* Error / Red Palette */
+  --red-50:  #fde8e8;
+  --red-100: #f8bcbc;
+  --red-200: #f28f8f;
+  --red-300: #eb5f5f;
+  --red-400: #e23a3a;
+  --red-500: #d60000;
+  --red-600: #b80000;
+  --red-700: #930000;
+  --red-800: #6f0000;
+  --red-900: #4a0000;
+
+   /* Neutral / Gray Palette */
+  --neutral-50:  #f8f9fa;
+  --neutral-100: #f1f3f5;
+  --neutral-200: #e9ecef;
+  --neutral-300: #dee2e6;
+  --neutral-400: #ced4da;
+  --neutral-500: #adb5bd;
+  --neutral-600: #868e96;
+  --neutral-700: #495057;
+  --neutral-800: #343a40;
+  --neutral-900: #212529;
+
+  /* Black / Base Dark Palette */
+  --black-50:  #f5f5f5;
+  --black-100: #e5e5e5;
+  --black-200: #cccccc;
+  --black-300: #a3a3a3;
+  --black-400: #737373;
+  --black-500: #525252;
+  --black-600: #404040;
+  --black-700: #262626;
+  --black-800: #171717;
+  --black-900: #0a0a0a;
+  --black-950: #000000;
+
+  /* White / Light Palette */
+  --white-50:  #ffffff;
+  --white-100: #fefefe;
+  --white-200: #fdfdfd;
+  --white-300: #fafafa;
+  --white-400: #f5f5f5;
+  --white-500: #eeeeee;
+  --white-600: #e5e5e5;
+  --white-700: #d4d4d4;
+  --white-800: #a3a3a3;
+  --white-900: #737373;
+
+
 }
 
 html { scroll-behavior: smooth; }
@@ -858,35 +921,35 @@ body { font-family: 'DM Sans', sans-serif; background: var(--lum-cream); color: 
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
   padding: 0 48px; height: 72px;
   display: flex; align-items: center; justify-content: space-between;
-  background: rgba(249,245,238,0.92); backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(139,111,71,0.12);
+  background: var(--color-brand-50); backdrop-filter: blur(12px);
+  border-bottom: none;
   transition: border-bottom-color .3s;
 }
 .luminae-nav-logo {
   font-family: 'Cormorant Garamond', serif; font-size: 26px;
-  font-weight: 300; letter-spacing: 0.22em; color: var(--lum-earth);
+  font-weight: 400; letter-spacing: 0.02em; color: var(--lum-earth);
   text-transform: uppercase; text-decoration: none;
 }
 .luminae-nav-links { display: flex; gap: 36px; list-style: none; }
 .luminae-nav-links a {
-  font-size: 13px; letter-spacing: 0.1em; color: var(--lum-muted);
+  font-size: 13px; letter-spacing: 0.1em; color: var(--color-brand-700);
   text-decoration: none; text-transform: uppercase; transition: color .2s;
 }
 .luminae-nav-links a:hover { color: var(--lum-earth); }
 .luminae-nav-actions { display: flex; gap: 20px; align-items: center; }
 .luminae-nav-actions button {
   background: none; border: none; cursor: pointer;
-  color: var(--lum-muted); font-size: 14px; transition: color .2s; padding: 12px;
+  color: var(--color-brand-700); font-size: 14px; transition: color .2s; padding: 12px;
 }
-.luminae-nav-actions button:hover { color: var(--lum-earth); }
+.luminae-nav-actions button:hover { color: var(--color-brand-500); }
 .luminae-cart-btn {
-  background: #003618 !important; color: var(--lum-cream) !important;
+  background: var(--color-brand-500) !important; color: var(--color-brand-white) !important;
   border: none; padding: 10px 24px;
   font-family: 'DM Sans', sans-serif; font-size: 12px;
   letter-spacing: 0.02em; text-transform: uppercase;
   cursor: pointer; border-radius: 4px; transition: background .2s;
 }
-.luminae-cart-btn:hover { background: #1c2a18 !important; }
+.luminae-cart-btn:hover { background: var(--color-brand-700) !important; }
 
 /* HERO */
 .luminae-hero {
@@ -918,26 +981,26 @@ body { font-family: 'DM Sans', sans-serif; background: var(--lum-cream); color: 
 .luminae-hero-title {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(64px, 8vw, 108px);
-  line-height: 0.9; font-weight: 300; color: #FFFEF9;
+  line-height: 0.9; font-weight: 300; color: var(--color-brand-white);
   margin-bottom: 32px; letter-spacing: -0.01em;
 }
 .luminae-hero-title em { font-style: italic; color: var(--lum-gold); }
 .luminae-hero-subtitle {
   font-size: 15px; line-height: 1.7;
-  color: rgba(255,254,249,0.72); max-width: 380px;
+  color: var(--color-brand-white); max-width: 70%;
   margin-bottom: 48px; font-weight: 300;
 }
 .luminae-hero-btns { display: flex; gap: 16px; align-items: center; }
 .luminae-btn-primary {
-  background: var(--lum-gold); color: var(--lum-deep);
+  background: var(--lum-gold); color: var(--color-brand-white);
   padding: 16px 36px; font-family: 'DM Sans', sans-serif;
   font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase;
   border: none; cursor: pointer; border-radius: 2px;
   transition: all .2s; text-decoration: none; display: inline-block;
 }
-.luminae-btn-primary:hover { background: var(--lum-cream); color: var(--lum-earth); }
+.luminae-btn-primary:hover { background: var(--color-brand-700); color: var(--color-brand-white); }
 .luminae-btn-ghost {
-  color: rgba(255,254,249,0.8); font-size: 12px; letter-spacing: 0.12em;
+  color: var(--color-brand-white); font-size: 12px; letter-spacing: 0.12em;
   text-transform: uppercase; text-decoration: none;
   display: flex; align-items: center; gap: 8px; transition: color .2s;
 }
@@ -965,7 +1028,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--lum-cream); color: 
 
 /* MARQUEE */
 .luminae-marquee-strip {
-  background: var(--lum-earth); padding: 14px 0; overflow: hidden;
+  background: var(--color-brand-700); padding: 14px 0; overflow: hidden;
 }
 .luminae-marquee-inner {
   display: flex; white-space: nowrap;
@@ -973,10 +1036,10 @@ body { font-family: 'DM Sans', sans-serif; background: var(--lum-cream); color: 
 }
 .luminae-marquee-item {
   font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--lum-sand); padding: 0 48px;
+  color: var(--color-brand-white); padding: 0 48px;
   display: flex; align-items: center; gap: 16px; flex-shrink: 0;
 }
-.luminae-marquee-item span { color: var(--lum-gold); font-size: 16px; }
+.luminae-marquee-item span { color: var(--color-brand-white); font-size: 16px; }
 @keyframes luminaeMarquee {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
@@ -984,7 +1047,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--lum-cream); color: 
 
 /* FEATURES BAR */
 .luminae-features-bar {
-  background: var(--lum-white);
+  background: var(--color-brand-50);
   border-bottom: 1px solid rgba(139,111,71,0.1);
   padding: 32px 80px;
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
