@@ -880,13 +880,13 @@ body { font-family: 'DM Sans', sans-serif; background: var(--lum-cream); color: 
 }
 .luminae-nav-actions button:hover { color: var(--lum-earth); }
 .luminae-cart-btn {
-  background: var(--lum-earth) !important; color: var(--lum-cream) !important;
+  background: #003618 !important; color: var(--lum-cream) !important;
   border: none; padding: 10px 24px;
   font-family: 'DM Sans', sans-serif; font-size: 12px;
   letter-spacing: 0.02em; text-transform: uppercase;
   cursor: pointer; border-radius: 4px; transition: background .2s;
 }
-.luminae-cart-btn:hover { background: var(--lum-deep) !important; }
+.luminae-cart-btn:hover { background: #1c2a18 !important; }
 
 /* HERO */
 .luminae-hero {
@@ -1080,7 +1080,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--lum-cream); color: 
   transition: opacity .3s;
 }
 .luminae-overlay-btn {
-  background: var(--lum-gold); color: var(--lum-deep);
+  background: #7a8c6a; color: #ffffff;
   padding: 14px 28px; font-family: 'DM Sans', sans-serif;
   font-size: 13px; letter-spacing: 0.15em; text-transform: lowercase;
   border: none; cursor: pointer; border-radius: 2px;
