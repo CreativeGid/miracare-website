@@ -1057,15 +1057,15 @@ body { font-family: 'DM Sans', sans-serif; background: var(--lum-cream); color: 
 }
 .luminae-feature-icon {
   width: 44px; height: 44px; border-radius: 50%;
-  background: var(--lum-warm);
+  background: var(--color-brand-white);
   display: flex; align-items: center; justify-content: center;
   font-size: 18px; flex-shrink: 0;
 }
 .luminae-feature-text h4 {
   font-size: 13px; font-weight: 500; letter-spacing: 0.05em;
-  color: var(--lum-earth); margin-bottom: 3px;
+  color: var(--color-brand-500); margin-bottom: 3px;
 }
-.luminae-feature-text p { font-size: 12px; color: var(--lum-muted); line-height: 1.4; }
+.luminae-feature-text p { font-size: 12px; color: var(--color-brand-300); line-height: 1.4; }
 
 /* SECTION UTILS */
 .luminae-section-label {
@@ -1086,26 +1086,26 @@ body { font-family: 'DM Sans', sans-serif; background: var(--lum-cream); color: 
 
 /* HEADLINE */
 .luminae-headline-section {
-  padding: 100px 80px 60px; background: var(--lum-cream);
+  padding: 100px 80px 60px; background: var(--neutral-50);
 }
 .luminae-headline-flex { display: flex; flex-direction: column; gap: 4px; }
 .luminae-headline-line { display: flex; align-items: center; gap: 24px; }
 .luminae-headline-word {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(56px, 7vw, 96px);
-  font-weight: 300; color: var(--lum-deep); line-height: 1;
+  font-weight: 300; color: var(--color-brand-500); line-height: 1;
 }
-.luminae-headline-word.luminae-italic { font-style: italic; color: var(--lum-bark); }
+.luminae-headline-word.luminae-italic { font-style: italic; color: var(--lum-gold); }
 .luminae-headline-pill {
   height: 64px; width: 110px; border-radius: 40px;
   overflow: hidden; display: inline-flex;
   align-items: center; justify-content: center;
-  background: var(--lum-warm); flex-shrink: 0; font-size: 32px;
+  background: var(--color-brand-50); flex-shrink: 0; font-size: 32px;
 }
 
 /* PRODUCTS */
 .luminae-products-section {
-  padding: 80px 80px 120px; background: var(--lum-white);
+  padding: 80px 80px 120px; background: var(--white-200);
 }
 .luminae-products-header {
   display: flex; align-items: flex-end;
@@ -1113,28 +1113,28 @@ body { font-family: 'DM Sans', sans-serif; background: var(--lum-cream); color: 
 }
 .luminae-category-tabs {
   display: flex; gap: 4px;
-  background: var(--lum-warm); padding: 4px; border-radius: 4px;
+  background: var(--color-brand-50); padding: 4px; border-radius: 4px;
 }
 .luminae-cat-tab {
   padding: 10px 24px; font-size: 12px; letter-spacing: 0.1em;
   text-transform: uppercase; border: none; background: none;
-  cursor: pointer; color: var(--lum-muted); border-radius: 2px;
+  cursor: pointer; color: var(--color-brand-500); border-radius: 2px;
   transition: all .2s; font-family: 'DM Sans', sans-serif;
 }
 .luminae-cat-tab.active {
-  background: var(--lum-white); color: var(--lum-earth);
+  background: var(--color-brand-200); color: var(--color-brand-50);
   box-shadow: 0 1px 4px rgba(0,0,0,0.08);
 }
 .luminae-products-grid {
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
 }
 .luminae-product-card {
-  background: var(--lum-cream); position: relative;
+  background: var(--color-brand-50); position: relative;
   overflow: hidden; cursor: pointer;
 }
 .luminae-product-img-wrap {
   aspect-ratio: 3/4; overflow: hidden;
-  position: relative; background: var(--lum-warm);
+  position: relative; background: var(--color-brand-100);
 }
 .luminae-product-overlay {
   position: absolute; inset: 0;
@@ -1143,7 +1143,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--lum-cream); color: 
   transition: opacity .3s;
 }
 .luminae-overlay-btn {
-  background: #7a8c6a; color: #ffffff;
+  background: var(--color-brand-500); color: #ffffff;
   padding: 14px 28px; font-family: 'DM Sans', sans-serif;
   font-size: 13px; letter-spacing: 0.15em; text-transform: lowercase;
   border: none; cursor: pointer; border-radius: 2px;
@@ -1153,32 +1153,32 @@ body { font-family: 'DM Sans', sans-serif; background: var(--lum-cream); color: 
   display: flex; justify-content: space-between; align-items: flex-end;
 }
 .luminae-product-info h3 {
-  font-size: 15px; font-weight: 400; color: var(--lum-earth); margin-bottom: 4px;
+  font-size: 16px; font-weight: 400; color: var(--color-brand-500); margin-bottom: 4px;
 }
-.luminae-product-sub { font-size: 12px; color: var(--lum-muted); }
+.luminae-product-sub { font-size: 12px; color: var(--color-brand-300); }
 .luminae-product-price {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 22px; font-weight: 500; color: var(--lum-earth);
+  font-family: 'dm sans', sans-serif;
+  font-size: 24px; font-weight: 600; color: var(--color-brand-500);
 }
 .luminae-badge {
   position: absolute; top: 16px; left: 16px;
-  background: var(--lum-gold); color: var(--lum-deep);
+  background: var(--color-brand-400); color: var(--color-brand-50);
   font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
   padding: 5px 10px; border-radius: 2px;
 }
 .luminae-shop-all { display: flex; justify-content: center; margin-top: 48px; }
 .luminae-btn-outline {
-  border: 1px solid var(--lum-earth); color: var(--lum-earth);
+  border: 1px solid var(--color-brand-500); color: var(--color-brand-500);
   padding: 16px 48px; font-family: 'DM Sans', sans-serif;
   font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase;
   background: none; cursor: pointer; border-radius: 2px;
   transition: all .2s; text-decoration: none; display: inline-block;
 }
-.luminae-btn-outline:hover { background: var(--lum-earth); color: var(--lum-cream); }
+.luminae-btn-outline:hover { background: var(--color-brand-500); color: var(--color-brand-50); }
 
 /* ECO */
 .luminae-eco-section {
-  padding: 0; background: var(--lum-warm);
+  padding: 0; background: var(--color-brand-50);
   display: grid; grid-template-columns: 1fr 1fr; min-height: 600px;
 }
 .luminae-eco-visual {
