@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import Image from "next/image";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -23,6 +24,7 @@ interface Product {
   badgeStyle?: React.CSSProperties;
   svgBg: string;
   svgContent: React.ReactNode;
+  image?: string;
 }
 
 interface Testimonial {
@@ -101,6 +103,7 @@ const PRODUCTS: Product[] = [
     price: "$34",
     category: "shampoo",
     badge: "Best Seller",
+    image: "https://images.unsplash.com/photo-1761125802333-d145773f4461?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     svgBg: "linear-gradient(145deg,#D9C9AD,#EFE6D5)",
     svgContent: (
       <svg width="120" height="200" viewBox="0 0 120 200">
@@ -118,6 +121,7 @@ const PRODUCTS: Product[] = [
     sub: "Treatments · 250ml",
     price: "$48",
     category: "treatment",
+    image: "https://images.unsplash.com/photo-1700709678003-01941f72fb92?q=80&w=1335&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     svgBg: "linear-gradient(145deg,rgba(122,140,106,0.13),#EFE6D5)",
     svgContent: (
       <svg width="120" height="200" viewBox="0 0 120 200">
@@ -137,6 +141,7 @@ const PRODUCTS: Product[] = [
     category: "serum",
     badge: "New",
     badgeStyle: { background: "#4A3728", color: "#D9C9AD" },
+    image: "https://images.unsplash.com/photo-1761125802333-d145773f4461?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     svgBg: "linear-gradient(145deg,rgba(196,162,101,0.13),#EFE6D5)",
     svgContent: (
       <svg width="120" height="200" viewBox="0 0 120 200">
@@ -155,6 +160,7 @@ const PRODUCTS: Product[] = [
     sub: "Shampoos · 300ml",
     price: "$34",
     category: "shampoo",
+    image: "https://images.unsplash.com/photo-1700709678003-01941f72fb92?q=80&w=1335&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     svgBg: "linear-gradient(145deg,rgba(42,31,20,0.13),#EFE6D5)",
     svgContent: (
       <svg width="120" height="200" viewBox="0 0 120 200">
@@ -173,6 +179,7 @@ const PRODUCTS: Product[] = [
     price: "$44",
     category: "treatment",
     badge: "Popular",
+    image: "https://images.unsplash.com/photo-1761125802333-d145773f4461?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     svgBg: "linear-gradient(145deg,rgba(139,111,71,0.13),#EFE6D5)",
     svgContent: (
       <svg width="120" height="200" viewBox="0 0 120 200">
@@ -192,6 +199,7 @@ const PRODUCTS: Product[] = [
     category: "serum",
     badge: "New",
     badgeStyle: { background: "#7A8C6A", color: "#fff" },
+    image: "https://images.unsplash.com/photo-1700709678003-01941f72fb92?q=80&w=1335&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     svgBg: "linear-gradient(145deg,rgba(122,140,106,0.13),rgba(217,201,173,0.27))",
     svgContent: (
       <svg width="120" height="200" viewBox="0 0 120 200">
@@ -491,7 +499,17 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
       onMouseLeave={() => setHovered(false)}
     >
       <div className="luminae-product-img-wrap">
-        <ProductBottleSVG bg={product.svgBg} svgContent={product.svgContent} />
+        {product.image ? (
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            sizes="(max-width: 768px) 100vw, 33vw"
+            style={{ objectFit: "cover" }}
+          />
+        ) : (
+          <ProductBottleSVG bg={product.svgBg} svgContent={product.svgContent} />
+        )}
         <div
           className="luminae-product-overlay"
           style={{ opacity: hovered ? 1 : 0 }}
@@ -1070,7 +1088,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--lum-cream); color: 
 /* SECTION UTILS */
 .luminae-section-label {
   font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
-  color: var(--lum-bark); margin-bottom: 16px;
+  color: var(--lum-GOLD); margin-bottom: 16px;
   display: flex; align-items: center; gap: 10px;
 }
 .luminae-section-label::before {
@@ -1079,7 +1097,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--lum-cream); color: 
 .luminae-display {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(48px, 5vw, 72px);
-  font-weight: 300; line-height: 1.05; color: var(--lum-deep);
+  font-weight: 300; line-height: 1.05; color: var(--color-brand-500);
   letter-spacing: -0.01em;
 }
 .luminae-display em { font-style: italic; color: var(--lum-bark); }
