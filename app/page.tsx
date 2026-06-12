@@ -326,6 +326,7 @@ const ProductBottleSVG: React.FC<{ bg: string; svgContent: React.ReactNode }> = 
 
 const Navbar: React.FC<{ cartCount?: number }> = ({ cartCount = 0 }) => {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -333,23 +334,42 @@ const Navbar: React.FC<{ cartCount?: number }> = ({ cartCount = 0 }) => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    if (menuOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "unset";
+  }, [menuOpen]);
+
   return (
     <nav
-      className="luminae-nav"
+      className={`luminae-nav ${menuOpen ? "menu-open" : ""}`}
       style={{ borderBottomColor: scrolled ? "rgba(139,111,71,0.2)" : "rgba(139,111,71,0.12)" }}
     >
+      <button 
+        className="luminae-hamburger" 
+        onClick={() => setMenuOpen(!menuOpen)}
+        aria-label="Toggle Menu"
+      >
+        <span className="hamburger-line"></span>
+        <span className="hamburger-line"></span>
+        <span className="hamburger-line"></span>
+      </button>
+
       <a href="#" className="luminae-nav-logo">MiraCare</a>
-      <ul className="luminae-nav-links">
+
+      <ul className={`luminae-nav-links ${menuOpen ? "active" : ""}`}>
         {["Shop", "Collections", "About", "Contact"].map((item) => (
           <li key={item}>
-            <a href={`#${item.toLowerCase()}`}>{item}</a>
+            <a href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)}>{item}</a>
           </li>
         ))}
       </ul>
+
       <div className="luminae-nav-actions">
-        <button aria-label="Search">⌖</button>
-        <button aria-label="Favourites">♡</button>
-        <button className="luminae-cart-btn">Add to Cart ({cartCount})</button>
+        <button aria-label="Search" className="hide-mobile">⌖</button>
+        <button aria-label="Favourites" className="hide-mobile">♡</button>
+        <button className="luminae-cart-btn">
+          <span className="hide-mobile">Add to Cart </span>({cartCount})
+        </button>
       </div>
     </nav>
   );
@@ -538,6 +558,15 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
 
 const ProductsSection: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<Category>("all");
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollTabs = (direction: "left" | "right") => {
+    if (scrollRef.current) {
+      const amount = direction === "left" ? -150 : 150;
+      scrollRef.current.scrollBy({ left: amount, behavior: "smooth" });
+    }
+  };
+
   const tabs: { key: Category; label: string }[] = [
     { key: "all", label: "All" },
     { key: "shampoo", label: "Shampoos" },
@@ -559,16 +588,20 @@ const ProductsSection: React.FC = () => {
             Our <em>Bestsellers</em>
           </DisplayHeading>
         </div>
-        <div className="luminae-category-tabs">
-          {tabs.map((tab) => (
-            <button
-              key={tab.key}
-              className={`luminae-cat-tab${activeCategory === tab.key ? " active" : ""}`}
-              onClick={() => setActiveCategory(tab.key)}
-            >
-              {tab.label}
-            </button>
-          ))}
+        <div className="luminae-tabs-container">
+          <button className="luminae-tabs-arrow" onClick={() => scrollTabs("left")} aria-label="Scroll left">‹</button>
+          <div className="luminae-category-tabs" ref={scrollRef}>
+            {tabs.map((tab) => (
+              <button
+                key={tab.key}
+                className={`luminae-cat-tab${activeCategory === tab.key ? " active" : ""}`}
+                onClick={() => setActiveCategory(tab.key)}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+          <button className="luminae-tabs-arrow" onClick={() => scrollTabs("right")} aria-label="Scroll right">›</button>
         </div>
       </div>
       <div className="luminae-products-grid">
@@ -978,7 +1011,7 @@ body { font-family: 'DM Sans', sans-serif; background: var(--lum-cream); color: 
   transition: transform 0.9s cubic-bezier(.77,0,.175,1);
 }
 .luminae-hero-slide {
-  min-width: 100%; height: 100%; position: relative; flex-shrink: 0;
+  width: 100%; height: 100%; position: relative; flex-shrink: 0;
 }
 .luminae-hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center; }
 .luminae-hero-overlay {
@@ -1129,10 +1162,24 @@ body { font-family: 'DM Sans', sans-serif; background: var(--lum-cream); color: 
   display: flex; align-items: flex-end;
   justify-content: space-between; margin-bottom: 56px;
 }
+.luminae-tabs-container {
+  display: flex; align-items: center; gap: 8px; max-width: 100%;
+}
+.luminae-tabs-arrow {
+  width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--color-brand-100);
+  background: var(--color-brand-white); color: var(--color-brand-500);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 20px; transition: all 0.2s;
+  flex-shrink: 0;
+}
+.luminae-tabs-arrow:hover { background: var(--color-brand-50); }
 .luminae-category-tabs {
   display: flex; gap: 4px;
   background: var(--color-brand-50); padding: 4px; border-radius: 4px;
+  overflow-x: auto; scroll-behavior: smooth; white-space: nowrap;
+  scrollbar-width: none; -ms-overflow-style: none;
 }
+.luminae-category-tabs::-webkit-scrollbar { display: none; }
 .luminae-cat-tab {
   padding: 10px 24px; font-size: 12px; letter-spacing: 0.1em;
   text-transform: uppercase; border: none; background: none;
@@ -1398,19 +1445,46 @@ body { font-family: 'DM Sans', sans-serif; background: var(--lum-cream); color: 
 }
 .luminae-footer-bottom p { font-size: 12px; color: rgba(217,201,173,0.35); }
 
+/* HAMBURGER */
+.luminae-hamburger {
+  display: none; width: 24px; height: 18px;
+  flex-direction: column; justify-content: space-between;
+  background: none; border: none; cursor: pointer; padding: 0; z-index: 110;
+}
+.hamburger-line {
+  width: 100%; height: 2px; background: var(--lum-earth);
+  transition: all 0.3s ease; transform-origin: center;
+}
+.menu-open .hamburger-line:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.menu-open .hamburger-line:nth-child(2) { opacity: 0; }
+.menu-open .hamburger-line:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
 /* RESPONSIVE */
 @media (max-width: 900px) {
   .luminae-nav { padding: 0 24px; }
-  .luminae-nav-links { display: none; }
-  .luminae-hero-content { padding: 0 24px; }
+  .luminae-hamburger { display: flex; }
+  .luminae-nav-links {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    background: var(--color-brand-50); flex-direction: column;
+    align-items: center; justify-content: center; gap: 40px;
+    transform: translateX(-100%); transition: transform 0.5s cubic-bezier(0.77,0,.175,1);
+    z-index: 100; display: flex;
+  }
+  .luminae-nav-links.active { transform: translateX(0); }
+  .luminae-nav-links a { font-size: 24px; color: var(--lum-earth); }
+  .hide-mobile { display: none; }
+
+  .luminae-hero-content { padding: 40px 24px; }
+  .luminae-hero-title { font-size: clamp(48px, 10vw, 80px); }
   .luminae-hero-indicators { left: 24px; }
-  .luminae-features-bar { grid-template-columns: 1fr 1fr; padding: 24px; }
+  .luminae-features-bar { grid-template-columns: 1fr 1fr; padding: 32px 24px; }
   .luminae-headline-section { padding: 80px 24px 40px; }
   .luminae-products-section { padding: 60px 24px 80px; }
   .luminae-products-header { flex-direction: column; align-items: flex-start; gap: 24px; }
   .luminae-products-grid { grid-template-columns: 1fr 1fr; }
   .luminae-eco-section { grid-template-columns: 1fr; }
-  .luminae-eco-visual { display: none; }
+  .luminae-eco-visual { min-height: 400px; }
+  .luminae-tabs-container { width: 100%; }
   .luminae-eco-content { padding: 60px 24px; }
   .luminae-testimonials { padding: 80px 24px; }
   .luminae-testimonials-grid { grid-template-columns: 1fr; }
@@ -1423,6 +1497,49 @@ body { font-family: 'DM Sans', sans-serif; background: var(--lum-cream); color: 
   .luminae-footer { padding: 60px 24px 32px; }
   .luminae-footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
   .luminae-footer-bottom { flex-direction: column; gap: 16px; }
+}
+
+@media (max-width: 480px) {
+  .luminae-nav { height: 64px; }
+  .luminae-nav-logo { font-size: 20px; }
+  .luminae-cart-btn { padding: 8px 16px; font-size: 11px; }
+  
+  .luminae-hero-content { padding: 40px 20px; }
+  .luminae-hero-title { font-size: 38px; margin-bottom: 24px; }
+  .luminae-hero-subtitle { font-size: 13px; max-width: 100%; margin-bottom: 32px; }
+  .luminae-hero-btns { flex-direction: column; align-items: stretch; width: 100%; gap: 12px; }
+  .luminae-hero-scroll { display: none; } /* Hide scroll indicator on small mobile */
+  .luminae-btn-primary { text-align: center; padding: 14px 24px; }
+  .luminae-btn-ghost { justify-content: center; }
+  
+  .luminae-marquee-item { font-size: 9px; padding: 0 24px; }
+  
+  .luminae-features-bar { grid-template-columns: 1fr; gap: 20px; }
+  
+  .luminae-category-tabs { flex-wrap: wrap; justify-content: center; }
+  .luminae-category-tabs { flex-wrap: nowrap; justify-content: flex-start; }
+  .luminae-headline-flex { gap: 8px; }
+  .luminae-headline-line { gap: 12px; }
+  .luminae-headline-pill { height: 40px; width: 70px; font-size: 20px; }
+  
+  .luminae-products-grid { grid-template-columns: 1fr; }
+  .luminae-product-info { padding: 16px; }
+  .luminae-product-price { font-size: 20px; }
+  
+  .luminae-eco-content { padding: 48px 24px; }
+  .luminae-eco-stat h3 { font-size: 36px; }
+  
+  .luminae-testi-card { padding: 24px; }
+  .luminae-testi-quote { font-size: 16px; }
+  
+  .luminae-ingredient-item { grid-template-columns: 48px 1fr; gap: 16px; }
+  .luminae-ingr-num { font-size: 28px; }
+  
+  .luminae-newsletter-form { flex-direction: column; gap: 8px; }
+  .luminae-newsletter-form input { border-right: 1px solid rgba(255,254,249,0.15); border-radius: 2px; }
+  .luminae-newsletter-form button { border-radius: 2px; width: 100%; }
+  
+  .luminae-footer-top { grid-template-columns: 1fr; gap: 48px; }
 }
 `;
 
