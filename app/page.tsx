@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -511,6 +512,7 @@ type Category = "all" | "shampoo" | "treatment" | "serum";
 
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   const [hovered, setHovered] = useState(false);
+  const router = useRouter();
 
   return (
     <div
@@ -535,6 +537,12 @@ const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           style={{ opacity: hovered ? 1 : 0 }}
         >
           <button className="luminae-overlay-btn">Add to Cart</button>
+          <button 
+            className="luminae-overlay-btn luminae-overlay-btn-buy"
+            onClick={() => router.push(`/checkout?productId=${product.id}`)}
+          >
+            Buy Now
+          </button>
         </div>
         {product.badge && (
           <div
@@ -1205,13 +1213,18 @@ body { font-family: 'DM Sans', sans-serif; background: var(--lum-cream); color: 
   position: absolute; inset: 0;
   background: rgba(28,18,9,0.45);
   display: flex; align-items: center; justify-content: center;
+  gap: 10px; padding: 20px;
   transition: opacity .3s;
 }
 .luminae-overlay-btn {
   background: var(--color-brand-500); color: #ffffff;
-  padding: 14px 28px; font-family: 'DM Sans', sans-serif;
-  font-size: 13px; letter-spacing: 0.15em; text-transform: lowercase;
+  padding: 12px 8px; font-family: 'DM Sans', sans-serif;
+  font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase;
   border: none; cursor: pointer; border-radius: 2px;
+  flex: 1; text-align: center;
+}
+.luminae-overlay-btn-buy {
+  background: var(--lum-gold); color: var(--lum-deep);
 }
 .luminae-product-info {
   padding: 20px 24px;
